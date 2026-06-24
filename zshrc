@@ -66,12 +66,6 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   bindkey '^[[B' history-substring-search-down
 }
 
-# Auto-close brackets, quotes, backticks
-[[ -f /usr/local/share/zsh-autopair/autopair.zsh ]] && \
-  source /usr/local/share/zsh-autopair/autopair.zsh
-
-# iTerm2 shell integration (jump-to-mark, click-to-open paths, inline images)
-[[ -f ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
 
 # ─────────────────────────────────────────────
 # FZF (cached init — skips subprocess on every shell start)
@@ -85,9 +79,9 @@ source "$_fzf_cache"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS='
   --height 40% --layout=reverse --border
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
-  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
+  --color=bg+:#1a0a2e,bg:#000000,spinner:#d946ef,hl:#8b5cf6
+  --color=fg:#e2e8f0,header:#d946ef,info:#6366f1,pointer:#f59e0b
+  --color=marker:#10b981,fg+:#f8fafc,prompt:#a78bfa,hl+:#e879f9'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 
@@ -273,3 +267,4 @@ if [[ ! -s "$_starship_cache" || "${commands[starship]}" -nt "$_starship_cache" 
   starship init zsh >| "$_starship_cache"
 fi
 source "$_starship_cache"
+
