@@ -36,12 +36,9 @@ HISTFILE=~/.zsh_history
 FPATH="/usr/local/share/zsh-completions:$FPATH"
 mkdir -p ~/.zsh/cache
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+20) ]]; then
-  compinit -d ~/.zcompdump
-  zcompile ~/.zcompdump
-else
-  compinit -C -d ~/.zcompdump
-fi
+compinit -C -d ~/.zcompdump
+# Recompile dump in background only when stale — never blocks startup
+[[ ! ~/.zcompdump.zwc -nt ~/.zcompdump ]] && zcompile ~/.zcompdump &!
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -70,10 +67,8 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 }
 
 # Auto-close brackets, quotes, backticks
-[[ -f /usr/local/share/zsh-autopair/autopair.zsh ]] && {
+[[ -f /usr/local/share/zsh-autopair/autopair.zsh ]] && \
   source /usr/local/share/zsh-autopair/autopair.zsh
-  autopair-init
-}
 
 # iTerm2 shell integration (jump-to-mark, click-to-open paths, inline images)
 [[ -f ~/.iterm2_shell_integration.zsh ]] && source ~/.iterm2_shell_integration.zsh
@@ -82,7 +77,7 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # FZF (cached init — skips subprocess on every shell start)
 # ─────────────────────────────────────────────
 _fzf_cache="$HOME/.zsh/cache/fzf_init.zsh"
-if [[ ! -f "$_fzf_cache" || "$(command -v fzf)" -nt "$_fzf_cache" ]]; then
+if [[ ! -s "$_fzf_cache" || "${commands[fzf]}" -nt "$_fzf_cache" ]]; then
   fzf --zsh >| "$_fzf_cache"
 fi
 source "$_fzf_cache"
@@ -166,7 +161,7 @@ alias myip='curl ifconfig.me'
 alias reload='source ~/.zshrc'
 alias zshconfig='open -e ~/.zshrc'
 alias starshipconfig='open -e ~/.config/starship.toml'
-alias brewup='brew update && brew upgrade --greedy && brew cleanup'
+alias brewup='brew update && brew upgrade --greedy && brew cleanup && rm -f ~/.zsh/cache/*_init.zsh'
 alias pubkey='cat ~/.ssh/id_ed25519.pub | pbcopy && echo "SSH key copied to clipboard"'
 
 # ─────────────────────────────────────────────
@@ -265,7 +260,7 @@ alias awsprofiles='cat ~/.aws/credentials | grep "\["'
 # Zoxide (cached init)
 # ─────────────────────────────────────────────
 _zoxide_cache="$HOME/.zsh/cache/zoxide_init.zsh"
-if [[ ! -f "$_zoxide_cache" || "$(command -v zoxide)" -nt "$_zoxide_cache" ]]; then
+if [[ ! -s "$_zoxide_cache" || "${commands[zoxide]}" -nt "$_zoxide_cache" ]]; then
   zoxide init zsh --cmd z >| "$_zoxide_cache"
 fi
 source "$_zoxide_cache"
@@ -274,7 +269,7 @@ source "$_zoxide_cache"
 # Starship (cached init — always last)
 # ─────────────────────────────────────────────
 _starship_cache="$HOME/.zsh/cache/starship_init.zsh"
-if [[ ! -f "$_starship_cache" || "$(command -v starship)" -nt "$_starship_cache" ]]; then
+if [[ ! -s "$_starship_cache" || "${commands[starship]}" -nt "$_starship_cache" ]]; then
   starship init zsh >| "$_starship_cache"
 fi
 source "$_starship_cache"
