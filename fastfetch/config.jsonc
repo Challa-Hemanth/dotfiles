@@ -1,0 +1,48 @@
+// Shadow Monarch — fastfetch config
+// All icons use MDI range (F0000+) — confirmed rendering with JetBrainsMono NF
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  "logo": {
+    "type": "builtin",
+    "source": "macos",
+    "color": {
+      "1": "38;2;139;92;246",
+      "2": "38;2;167;139;250"
+    }
+  },
+
+  "display": {
+    "separator": "  ",
+    "color": {
+      "keys":      "38;2;167;139;250",
+      "title":     "38;2;217;70;239",
+      "separator": "38;2;100;116;139"
+    }
+  },
+
+  "modules": [
+    "title",
+    "separator",
+    { "type": "os",       "key": "󰀵 OS"       },
+    { "type": "host",     "key": "󰌢 Host"     },
+    { "type": "kernel",   "key": "󰌽 Kernel"   },
+    { "type": "uptime",   "key": "󰅐 Uptime"   },
+    { "type": "packages", "key": "󰏗 Packages" },
+    { "type": "shell",    "key": "󱆃 Shell"    },
+    { "type": "display",  "key": "󰍹 Display"  },
+    { "type": "terminal", "key": "󰆍 Terminal" },
+    { "type": "cpu",      "key": "󰆗 CPU"      },
+    { "type": "gpu",      "key": "󰍛 GPU"      },
+    { "type": "memory",   "key": "󰘚 Memory"   },
+    {
+      "type":    "disk",
+      "key":     "󰋊 Disk",
+      "folders": "/"
+    },
+    { "type": "battery",  "key": "󰁹 Battery"  },
+    { "type": "localip",  "key": "󰩟 IP"       },
+    "break",
+    "colors"
+  ]
+}
