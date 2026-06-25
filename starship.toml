@@ -101,12 +101,12 @@ format = "[$symbol$profile ](fg:gold bold)"
 
 [cmd_duration]
 min_time = 500
-format = "[⏱ $duration ](fg:dim)"
+format = "[⏱ $duration ](fg:amber bold)"
 
 [time]
 disabled = false
 time_format = "%I:%M %p"
-format = "[$time](fg:teal bold)"
+format = "[$time](fg:lavender bold)"
 
 # ─────────────────────────────────────────────
 # Prompt character
