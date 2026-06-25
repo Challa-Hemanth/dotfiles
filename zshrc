@@ -57,6 +57,8 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 ZSH_HIGHLIGHT_MAXLENGTH=512
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#14b8a6,bold'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=#14b8a6,bold'
 
 # History substring search — type prefix, ↑/↓ cycles matching history
 # Must load after syntax-highlighting
