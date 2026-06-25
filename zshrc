@@ -154,6 +154,9 @@ alias uvrun='uv run'
 alias uvadd='uv add'
 alias uvsync='uv sync'
 alias myip='curl ifconfig.me'
+alias help='tldr'
+alias df='dust'
+alias top='btm'
 alias reload='source ~/.zshrc'
 alias zshconfig='open -e ~/.zshrc'
 alias starshipconfig='open -e ~/.config/starship.toml'
@@ -214,18 +217,13 @@ bundle() {
 }
 
 # ─────────────────────────────────────────────
-# LAZY LOAD: nvm
+# fnm — fast Node version manager (replaces nvm)
 # ─────────────────────────────────────────────
-export NVM_DIR="$HOME/.nvm"
-_load_nvm() {
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && source "/usr/local/opt/nvm/nvm.sh"
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && source "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
-}
-nvm() { unfunction nvm; _load_nvm; nvm "$@" }
-node() { unfunction node; _load_nvm; node "$@" }
-npm() { unfunction npm; _load_nvm; npm "$@" }
-npx() { unfunction npx; _load_nvm; npx "$@" }
-yarn() { unfunction yarn; _load_nvm; yarn "$@" }
+_fnm_cache="$HOME/.zsh/cache/fnm_init.zsh"
+if [[ ! -s "$_fnm_cache" || "${commands[fnm]}" -nt "$_fnm_cache" ]]; then
+  fnm env --use-on-cd --shell zsh >| "$_fnm_cache"
+fi
+source "$_fnm_cache"
 
 # ─────────────────────────────────────────────
 # LAZY LOAD: jenv
@@ -246,6 +244,22 @@ gradle() { unfunction gradle; _load_jenv; gradle "$@" }
 export AWS_CLI_AUTO_PROMPT=on-partial
 alias awswho='aws sts get-caller-identity'
 alias awsprofiles='cat ~/.aws/credentials | grep "\["'
+
+# ─────────────────────────────────────────────
+# direnv — per-project .env auto-loading
+# ─────────────────────────────────────────────
+_direnv_cache="$HOME/.zsh/cache/direnv_init.zsh"
+if [[ ! -s "$_direnv_cache" || "${commands[direnv]}" -nt "$_direnv_cache" ]]; then
+  direnv hook zsh >| "$_direnv_cache"
+fi
+source "$_direnv_cache"
+
+# gh — GitHub CLI completions
+_gh_cache="$HOME/.zsh/cache/gh_completions.zsh"
+if [[ ! -s "$_gh_cache" || "${commands[gh]}" -nt "$_gh_cache" ]]; then
+  gh completion -s zsh >| "$_gh_cache"
+fi
+source "$_gh_cache"
 
 # ─────────────────────────────────────────────
 # Zoxide (cached init)
