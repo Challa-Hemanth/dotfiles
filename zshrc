@@ -149,8 +149,10 @@ alias lg='lazygit'
 # Dev aliases
 # ─────────────────────────────────────────────
 alias py='python3'
-alias pip='pip3'
 alias serve='python3 -m http.server'
+alias uvrun='uv run'
+alias uvadd='uv add'
+alias uvsync='uv sync'
 alias myip='curl ifconfig.me'
 alias reload='source ~/.zshrc'
 alias zshconfig='open -e ~/.zshrc'
@@ -170,26 +172,16 @@ alias dt='cdr ~/Desktop'
 alias dev='cdr ~/Developer'
 
 # ─────────────────────────────────────────────
-# LAZY LOAD: pyenv
+# uv — Python version + package management
 # ─────────────────────────────────────────────
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-pyenv() {
-  unfunction pyenv
-  eval "$(command pyenv init -)"
-  eval "$(command pyenv virtualenv-init -)" 2>/dev/null
-  pyenv "$@"
-}
-python3() {
-  unfunction python3
-  eval "$(command pyenv init -)"
-  python3 "$@"
-}
-pip3() {
-  unfunction pip3
-  eval "$(command pyenv init -)"
-  pip3 "$@"
-}
+export PATH="$HOME/.local/bin:$PATH"
+
+# Cached uv completions
+_uv_cache="$HOME/.zsh/cache/uv_init.zsh"
+if [[ ! -s "$_uv_cache" || "${commands[uv]}" -nt "$_uv_cache" ]]; then
+  uv generate-shell-completion zsh >| "$_uv_cache"
+fi
+source "$_uv_cache"
 
 # ─────────────────────────────────────────────
 # LAZY LOAD: rbenv
