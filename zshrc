@@ -183,6 +183,11 @@ if [[ ! -s "$_uv_cache" || "${commands[uv]}" -nt "$_uv_cache" ]]; then
 fi
 source "$_uv_cache"
 
+# Default venv — always-available libs for quick scripting
+# Project venvs (uv init) override this automatically
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+[[ -f "$HOME/.venv/bin/activate" ]] && source "$HOME/.venv/bin/activate"
+
 # ─────────────────────────────────────────────
 # LAZY LOAD: rbenv
 # ─────────────────────────────────────────────
