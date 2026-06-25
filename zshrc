@@ -55,7 +55,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-ZSH_HIGHLIGHT_MAXLENGTH=60
+ZSH_HIGHLIGHT_MAXLENGTH=512
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # History substring search — type prefix, ↑/↓ cycles matching history
