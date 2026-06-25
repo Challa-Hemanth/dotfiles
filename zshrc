@@ -192,31 +192,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 [[ -f "$HOME/.venv/bin/activate" ]] && source "$HOME/.venv/bin/activate"
 
 # ─────────────────────────────────────────────
-# LAZY LOAD: rbenv
-# ─────────────────────────────────────────────
-export PATH="$HOME/.rbenv/bin:$PATH"
-rbenv() {
-  unfunction rbenv
-  eval "$(command rbenv init -)"
-  rbenv "$@"
-}
-ruby() {
-  unfunction ruby
-  eval "$(command rbenv init -)"
-  ruby "$@"
-}
-gem() {
-  unfunction gem
-  eval "$(command rbenv init -)"
-  gem "$@"
-}
-bundle() {
-  unfunction bundle
-  eval "$(command rbenv init -)"
-  bundle "$@"
-}
-
-# ─────────────────────────────────────────────
 # fnm — fast Node version manager (replaces nvm)
 # ─────────────────────────────────────────────
 _fnm_cache="$HOME/.zsh/cache/fnm_init.zsh"
@@ -224,19 +199,6 @@ if [[ ! -s "$_fnm_cache" || "${commands[fnm]}" -nt "$_fnm_cache" ]]; then
   fnm env --use-on-cd --shell zsh >| "$_fnm_cache"
 fi
 source "$_fnm_cache"
-
-# ─────────────────────────────────────────────
-# LAZY LOAD: jenv
-# ─────────────────────────────────────────────
-export PATH="$HOME/.jenv/bin:$PATH"
-_load_jenv() {
-  eval "$(command jenv init -)"
-}
-jenv() { unfunction jenv; _load_jenv; jenv "$@" }
-java() { unfunction java; _load_jenv; java "$@" }
-javac() { unfunction javac; _load_jenv; javac "$@" }
-mvn() { unfunction mvn; _load_jenv; mvn "$@" }
-gradle() { unfunction gradle; _load_jenv; gradle "$@" }
 
 # ─────────────────────────────────────────────
 # AWS
