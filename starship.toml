@@ -101,7 +101,7 @@ format = "[$symbol$profile ](fg:gold bold)"
 
 [cmd_duration]
 min_time = 500
-format = "[⏱$duration ](fg:dim)"
+format = "[⏱ $duration ](fg:dim)"
 
 [time]
 disabled = false
